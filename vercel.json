@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/wp/:path*",
+      "destination": "https://abejorro-digital.rf.gd/el-vuelo-del-abejorro/index.php?rest_route=/wp/v2/:path*"
+    }
+  ]
+}
