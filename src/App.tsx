@@ -12,9 +12,9 @@ export default function App() {
     setLoading(true);
     window.scrollTo(0, 0);
     try {
-      // Conexión directa a la API REST de WordPress (sin proxy)
-      // WordPress ya incluye las cabeceras CORS (Access-Control-Allow-Origin: *)
-      const response = await fetch(`https://abejorro-digital.rf.gd/el-vuelo-del-abejorro/index.php?rest_route=/wp/v2/posts&_embed&per_page=10&page=${pageNum}`);
+      // Conexión a la API REST de WordPress a través del proxy de Vercel (o Vite en local)
+      // Esto evita los bloqueos de CORS del proveedor de hosting gratuito
+      const response = await fetch(`/api/wp/posts?_embed&per_page=10&page=${pageNum}`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
