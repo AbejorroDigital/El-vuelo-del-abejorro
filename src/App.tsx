@@ -12,8 +12,9 @@ export default function App() {
     setLoading(true);
     window.scrollTo(0, 0);
     try {
-      // Usamos el proxy para evitar problemas de CORS o bloqueos del servidor
-      const response = await fetch(`/proxy/el-vuelo-del-abejorro/index.php?rest_route=/wp/v2/posts&_embed&per_page=10&page=${pageNum}`);
+      // Conexión directa a la API REST de WordPress (sin proxy)
+      // WordPress ya incluye las cabeceras CORS (Access-Control-Allow-Origin: *)
+      const response = await fetch(`https://abejorro-digital.rf.gd/el-vuelo-del-abejorro/index.php?rest_route=/wp/v2/posts&_embed&per_page=10&page=${pageNum}`);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -88,6 +89,7 @@ export default function App() {
                 <img 
                   src={getImg(post)} 
                   alt=""
+                  referrerPolicy="no-referrer"
                   className="w-full h-48 object-cover rounded-lg mb-4 shadow-lg shadow-black" 
                 />
               )}
