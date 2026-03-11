@@ -5,16 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Vuelo del Abejorro</title>
     <style>
-        body { background: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
+        body, html { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #fff; }
+        #viewer { width: 100%; height: 100vh; border: none; display: none; }
+        .loading { display: flex; justify-content: center; align-items: center; height: 100vh; font-family: sans-serif; }
     </style>
 </head>
 <body>
-    <p>Cargando blog...</p>
+    <div id="loader" class="loading">Sincronizando con el blog...</div>
+    <iframe id="viewer" src="https://abejorro-digital.rf.gd/el-vuelo-del-abejorro/"></iframe>
+
     <script>
-        // Si el proxy falla por seguridad AES, esto fuerza la entrada
-        if (window.location.hostname.includes('vercel.app')) {
-            console.log("Conectando con el servidor de contenido...");
-        }
+        const iframe = document.getElementById('viewer');
+        const loader = document.getElementById('loader');
+
+        // Intentamos forzar la carga. Si el servidor de InfinityFree lanza el reto JS,
+        // el iframe lo recibirá y, si tiene éxito, mostrará el blog.
+        iframe.onload = function() {
+            loader.style.display = 'none';
+            iframe.style.display = 'block';
+        };
+
+        // Si después de 5 segundos no carga, intentamos recargar solo el iframe
+        setTimeout(() => {
+            if (iframe.style.display === 'none') {
+                iframe.src = iframe.src; 
+            }
+        }, 5000);
     </script>
 </body>
 </html>
